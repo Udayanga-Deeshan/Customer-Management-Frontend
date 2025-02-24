@@ -75,11 +75,48 @@ function deleteCustomer() {
         .then((result) => {
             loadCustomers();
             console.log(result)
+            alert("Customer Deleted Success")
+            clear();
         })
         .catch((error) => console.error(error));
 
-        clear();
+        
 
+}
+
+
+function updateCustomer() {
+    let id = document.getElementById("updateId").value;
+    let name = document.getElementById("updateName").value;
+    let address = document.getElementById("updateAddress").value;
+    let salary = document.getElementById("updateSalary").value;
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+        "id": id,
+        "name": name,
+        "address": address,
+        "salary": salary
+    });
+
+    const requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+
+    fetch("http://localhost:8080/customer/update-customer", requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+            loadCustomers();
+            console.log(result)
+            alert("Customer updated success")
+            clearUpdateForm();
+        })
+        .catch((error) => console.error(error));
 }
 
 
@@ -87,4 +124,12 @@ function clear() {
     let name = document.getElementById("name").value = "";
     let address = document.getElementById("address").value = "";
     let salary = document.getElementById("salary").value = "";
+}
+
+
+function clearUpdateForm() {
+     document.getElementById("updateId").value = "";
+     document.getElementById("updateName").value = "";
+     document.getElementById("updateAddress").value = "";
+     document.getElementById("updateSalary").value = "";
 }
