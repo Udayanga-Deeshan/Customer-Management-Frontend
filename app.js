@@ -62,6 +62,26 @@ function addCustomer() {
         clear();
 }
 
+function deleteCustomer() {
+    let idValue = document.getElementById("deleteId").value;
+
+    const requestOptions = {
+        method: "DELETE",
+        redirect: "follow"
+    };
+
+    fetch("http://localhost:8080/customer/delete/" + idValue, requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+            loadCustomers();
+            console.log(result)
+        })
+        .catch((error) => console.error(error));
+
+        clear();
+
+}
+
 
 function clear() {
     let name = document.getElementById("name").value = "";
