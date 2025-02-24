@@ -63,6 +63,7 @@ function addCustomer() {
 }
 
 function deleteCustomer() {
+    
     let idValue = document.getElementById("deleteId").value;
 
     const requestOptions = {
@@ -86,6 +87,7 @@ function deleteCustomer() {
 
 
 function updateCustomer() {
+    
     let id = document.getElementById("updateId").value;
     let name = document.getElementById("updateName").value;
     let address = document.getElementById("updateAddress").value;
@@ -115,6 +117,27 @@ function updateCustomer() {
             console.log(result)
             alert("Customer updated success")
             clearUpdateForm();
+        })
+        .catch((error) => console.error(error));
+}
+
+function searchCustomerById() {
+    let searchValue = document.getElementById("searchCustomer").value;
+
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+    };
+
+    fetch("http://localhost:8080/customer/search-by-id/" + searchValue, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+            let name = document.getElementById("name").value = result.name;
+            let address = document.getElementById("address").value = result.address;
+            let salary = document.getElementById("salary").value = result.salary;
+
+            
+
         })
         .catch((error) => console.error(error));
 }
